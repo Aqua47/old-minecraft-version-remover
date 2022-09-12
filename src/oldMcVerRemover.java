@@ -14,39 +14,34 @@ public class oldMcVerRemover {
 		File manifest = new File(loc+"\\versions\\version_manifest_v2.json");
 		manifest.delete();
 		
-		int lc = 1000;
+		int lc = 2;
 		
-		while (lc != 0) {
-			
+		String keep = "1.19.2";
 		
-			
 		String p = "";
-		int l = path(loc, "\\versions\\").length;
-		//System.out.println(l);
+				
+		int l = path(loc, "\\versions\\", keep).length;
 		if (lc==1000) {
 			lc=l;
 		}
 		lc--;
 		while (l != 0) {
 			l--;
-			p = path(loc, "\\versions\\")[l];
-			//System.out.println(p);
-			path(loc, "\\versions\\"+p);
-		}
+			p = path(loc, "\\versions\\", keep)[l];
+			path(loc, "\\versions\\"+p, keep);
 		}
 	}
 	
-	static String[] path (String loc, String file) {
+	static String[] path (String loc, String file, String keep) {
 		String[] pathnames;
 	    File ver = new File(loc+file);
 	    pathnames = ver.list();
 	    for (String pathname : pathnames) {
-	    	//System.out.println(pathname);
 	    	File path = new File(ver+"\\"+pathname);
-	    	if (pathname.equals("1.19.2") || pathname.equals("1.19.2.json") || pathname.equals("1.19.2.jar")) {}
+	    	if (pathname.equals(keep) || pathname.equals(keep+".json") || pathname.equals(keep+".jar")) {}
 	    	else {
 	    		path.delete();
-	    		System.out.println(ver+"\\"+pathname);
+	    		System.out.println(path); 
 	    	}
 	    }
 	    return pathnames;
